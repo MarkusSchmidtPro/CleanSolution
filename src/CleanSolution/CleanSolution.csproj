@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>21.04.09</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Authors>Markus Schmidt</Authors>
+    <Company>Markus Schmidt (Pro)</Company>
+    <Product>CLArgs - Command Line Arguments</Product>
+    <Copyright>Copyright (c) 2021, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <ApplicationIcon>CLArgs.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CLArgs.ico" />
+    <None Remove="nlog.debug.config" />
+    <None Remove="nlog.release.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="nlog.debug.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nlog.release.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSPro.CLArgs" Version="1.2104.9.1" />
+    <PackageReference Include="NLog" Version="4.7.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Program.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+</Project>
