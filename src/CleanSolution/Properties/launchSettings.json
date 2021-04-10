@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CleanSolution": {
+      "commandName": "Project",
+      "commandLineArgs": "/p=\"*\\obj;*\\bin;*.pdb;*.user\" /e=\"*\\.git;*\\.vs\" \"t:\\CleanFolders\""
+    }
+  }
+}

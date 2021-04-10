@@ -9,22 +9,19 @@ using NLog.Config;
 
 namespace CleanSolution
 {
+    /// <summary>
+    /// The program as a console Application acts as a host, only.
+    /// </summary>
+    /// <remarks>
+    /// It takes the command line arguments, scans for available Command
+    /// implementations in the application's directory (see SEARCH_PATTERN).
+    /// Finally, it runs the command as specified in the command line (ref Verb).
+    /// </remarks>
     internal class Program
     {
         private const string SEARCH_PATTERN = "CleanSolution.Command*.dll";
         private static ILogger ConsoleLog => LogManager.GetLogger("Console");
         private static ILogger Log => LogManager.GetLogger("Program");
-
-
-
-        private static string resolveFileName(string fileName)
-        {
-            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
-            string l = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
-            return File.Exists(filePath) ? filePath : Path.Combine(l!, fileName);
-        }
-
-
 
         private static int Main(string[] args)
         {
@@ -52,8 +49,6 @@ namespace CleanSolution
                 appResult = AppReturnCode.Success;
             }
 
-
-
             #region Exception Handling
 
             catch (AggregateException ex)
@@ -77,14 +72,20 @@ namespace CleanSolution
 
             #endregion
 
-
-
 #if DEBUG
             Console.WriteLine();
             Console.WriteLine(@"Press 'eniki'...");
             Console.ReadKey();
 #endif
             return Convert.ToInt32(appResult);
+        }
+
+
+        private static string resolveFileName(string fileName)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
+            string l = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            return File.Exists(filePath) ? filePath : Path.Combine(l!, fileName);
         }
     }
 

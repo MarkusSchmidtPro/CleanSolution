@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <LangVersion>9.0</LangVersion>
     <TargetFramework>net5.0</TargetFramework>
     <Version>21.04.09</Version>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
-    <FileVersion>$(Version)</FileVersion>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>21.04.*</AssemblyVersion>
+    <FileVersion>21.04</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
