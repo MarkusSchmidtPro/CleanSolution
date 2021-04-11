@@ -2,35 +2,42 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NLog;
 
 
 
 namespace CleanSolution.Command.Services
 {
-    internal class CleanFolder
+    internal class ParseDirectory
     {
+        private readonly Action<string> _deleteFileAction;
+        private readonly Action<string> _excludeDirectoryAction;
+        private readonly Action<string> _deleteDirectoryAction;
         private static readonly ILogger _log = LogManager.GetCurrentClassLogger();
-        private readonly string _rootPath;
         private readonly IEnumerable<PatternMatch> _deletionPatterns;
         private readonly IEnumerable<PatternMatch> _ignorePatterns;
+        private readonly string _rootPath;
 
 
 
-        public CleanFolder(string rootPath, IEnumerable<string> deletionPatterns, IEnumerable<string> ignorePatterns)
-            : this(rootPath, deletionPatterns.Select(p => new PatternMatch(p)),
-                ignorePatterns.Select(p => new PatternMatch(p)))
-        {
-        }
-
-
-
-        private CleanFolder(string rootPath, IEnumerable<PatternMatch> deletionPatterns, IEnumerable<PatternMatch> ignorePatterns)
+        public ParseDirectory(
+            string rootPath,
+            [NotNull] List<string> deletionPatterns,
+            [NotNull] List<string> ignorePatterns,
+            Action<string> deleteDirectoryAction,
+            Action<string> excludeDirectoryAction,
+            Action<string> deleteFileAction
+            )
         {
             if (!Path.IsPathRooted(rootPath)) throw new ArgumentException("Path must be rooted", nameof(rootPath));
             _rootPath = rootPath;
-            _deletionPatterns = deletionPatterns;
-            _ignorePatterns = ignorePatterns;
+            _deleteFileAction = deleteFileAction;
+            _excludeDirectoryAction = excludeDirectoryAction;
+            _deleteDirectoryAction = deleteDirectoryAction;
+
+            _deletionPatterns = deletionPatterns.Select(p => new PatternMatch(p));
+            _ignorePatterns = ignorePatterns.Select(p => new PatternMatch(p));
         }
 
 
@@ -38,10 +45,11 @@ namespace CleanSolution.Command.Services
         public void Execute() => processDirectory(_rootPath);
 
 
-        void processDirectory(string currentDirFullPath)
+
+        private void processDirectory(string currentDirFullPath)
         {
             string currentDirPath = Path.GetRelativePath(_rootPath, currentDirFullPath);
-            _log.Info($"> {currentDirPath}");
+            _log.Debug($"> {currentDirPath}");
 
             var currentDirs = Directory.GetDirectories(currentDirFullPath).Select(d => new DirectoryInfo(d));
             foreach (DirectoryInfo di in currentDirs)
@@ -51,17 +59,16 @@ namespace CleanSolution.Command.Services
                 // if directory is an exclude match --> skip it
                 if (_ignorePatterns.Any(ip => ip.IsMatches(matchCheckPath)))
                 {
-                    _log.Debug($"EX: {matchCheckPath}");
+                    _excludeDirectoryAction(matchCheckPath);
                     continue;
                 }
 
                 // process current directory
                 if (_deletionPatterns.Any(dp => dp.IsMatches(matchCheckPath)))
                 {
-                    _log.Info($"RD: {matchCheckPath}");
+                    _deleteDirectoryAction(matchCheckPath);
                     continue;
                 }
-
                 processDirectory(di.FullName);
             }
 
@@ -72,7 +79,7 @@ namespace CleanSolution.Command.Services
                 string relativeFilePath = Path.GetRelativePath(_rootPath, fi.FullName);
                 if (_deletionPatterns.Any(dp => dp.IsMatches(relativeFilePath)))
                 {
-                    _log.Info($"DEL {relativeFilePath}");
+                    _deleteFileAction(relativeFilePath);
                 }
             }
         }

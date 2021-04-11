@@ -15,6 +15,10 @@ namespace CleanSolution.Command
     /// </remarks>
     internal class CommandContext
     {
+        [Targets]
+        public List<string> Directories { get; set; } = new();
+
+
         [OptionDescriptor("Pattern", new[] {"p"},
             // Multiple Patterns will be resolved into IncludePatterns
             // CLArgs does the magic job of splitting arguments. Your code simply uses
@@ -25,10 +29,8 @@ namespace CleanSolution.Command
             Default = "obj;bin;build;gen;*.user",
             Required = false,
             HelpText =
-                "Specify one or more 'Glob' patterns"+
-                "|for files or directories that will be deleted."+
-                "|See: microsoft.extensions.filesystemglobbing.matcher " +
-                "|for more information about patterns.")]
+                "Specify one or more 'Glob' patterns for files or directories that will be deleted."+
+                "|See: microsoft.extensions.filesystemglobbing.matcher for more information about patterns.")]
         // ReSharper disable once UnusedMember.Global
         public string IncludePattern { get; set; }
 
@@ -46,12 +48,20 @@ namespace CleanSolution.Command
             Default = ".git;.vs",
             Required = false,
             HelpText =
-                "Specify one or more 'Glob' patterns"+
-                "|for files or directories that will be excluded from deletion.")]
+                "Specify one or more 'Glob' patterns for files or directories"+
+                " that will be excluded from deletion.")]
         // ReSharper disable once UnusedMember.Global
         public string ExcludePattern { get; set; }
 
 
-        public List<string> ExcludePatterns { get; set; } = new List<string> ();
+        public List<string> ExcludePatterns { get; set; } = new();
+
+        [OptionDescriptor("Test", new[] {"t"},
+            Default = true,
+            HelpText =
+                "Specify this /t=false if you want to delete files and directories." +
+                " Otherwise, by default, the deletions are printed to Console, only, but not performed.")]
+        public bool Test { get; set; }
+
     }
 }

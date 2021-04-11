@@ -5,7 +5,7 @@
     <LangVersion>9.0</LangVersion>
     <Version>21.04.09</Version>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>21.04.*.*</AssemblyVersion>
+    <AssemblyVersion>21.04.*</AssemblyVersion>
     <FileVersion>21.04</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
@@ -15,8 +15,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2104.9.1" />
+    <None Remove="sln.profile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="sln.profile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NLog" Version="4.7.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
   </ItemGroup>
 
 </Project>

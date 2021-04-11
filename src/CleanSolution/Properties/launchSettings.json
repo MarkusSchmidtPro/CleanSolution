@@ -2,7 +2,19 @@
   "profiles": {
     "CleanSolution": {
       "commandName": "Project",
-      "commandLineArgs": "/p=\"*\\obj;*\\bin;*.pdb;*.user\" /e=\"*\\.git;*\\.vs\" \"t:\\CleanFolders\""
+      "commandLineArgs": "/p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\"",
+      "workingDirectory": "t:\\CleanFolders"
+    },
+    "CleanSolution with SLN profile": {
+      "commandName": "Project",
+      "commandLineArgs": "@sln.profile /t t:\\CleanFolders"
+    },
+    "Display All Commands - Help": {
+      "commandName": "Project"
+    },
+    "Display Single Command Options Help": {
+      "commandName": "Project",
+      "commandLineArgs": "/help"
     }
   }
 }

@@ -31,11 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2104.9.1" />
     <PackageReference Include="NLog" Version="4.7.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
     <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj" />
   </ItemGroup>
 

@@ -43,7 +43,8 @@ namespace CleanSolution
                 Commander.ExecuteCommand(args, new Settings
                 {
                     CommandResolver = new AssemblyCommandResolver(assemblyFileNames),
-                    IgnoreCase      = true
+                    IgnoreCase = true,
+                    OptionValueTags = new[] { '=', ':' } // <<< support, targets to Context
                 });
 
                 appResult = AppReturnCode.Success;
@@ -52,7 +53,7 @@ namespace CleanSolution
             #region Exception Handling
 
             catch (AggregateException ex)
-            {                
+            {
                 Log.Error(ex);
                 appResult = AppReturnCode.AppException;
                 ConsoleLog.Error<Exception>("Unexpected termination!", ex);
