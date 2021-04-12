@@ -12,15 +12,12 @@ namespace CleanSolution.Command
 {
     // '|' represents a line-break when displaying help.
 
-
-
     [Command(COMMAND_NAME,
         HelpText =
             "Clean a directory" +
             "|by deleting all files that match a given pattern." +
-            "| " +
             "|You can perfectly use this command to clean a Visual Studio Solution directory before you ship it." +
-            "|Delete, for example, all .git, .vs folders or *.user files.")]
+            " Delete, for example, all .git, .vs folders or *.user files.")]
     internal class Command : CommandBase<CommandContext>
     {
         private const string COMMAND_NAME = "CleanSolution";
@@ -41,8 +38,9 @@ namespace CleanSolution.Command
             _root = context.Directories.First();
             Log.Info($"Root   : {_root}");
 
-            ParseDirectory directoryParser = new( _root,
-                context.IncludePatterns, context.ExcludePatterns,
+            ParseDirectory directoryParser = new(_root,
+                context.IncludePatterns,
+                context.ExcludePatterns,
                 deleteDirectory, excludeDirectory, deleteFile
             );
 
@@ -78,7 +76,18 @@ namespace CleanSolution.Command
         private string getFullPath(string relativePath) => Path.Combine(_root, relativePath);
 
 
-
+        /// <summary>
+        /// Check command-line arguments - passed to the Command as a typed Context - before
+        /// the Command itself is actually executed.
+        /// </summary>
+        /// <remarks>
+        /// Add errors to the <paramref name="errors"></paramref> list, instead of throwing exceptions.
+        /// Errors can be collected and many errors can be reported to the user. CLArgs will takes care
+        /// of reporting errors. Simply collect them.
+        /// </remarks>
+        /// <param name="context"></param>
+        /// <param name="unresolvedPropertyNames"></param>
+        /// <param name="errors"></param>
         protected override void BeforeExecute(
             CommandContext context,
             HashSet<string> unresolvedPropertyNames,

@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <LangVersion>9.0</LangVersion>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>21.04.09</Version>
+    <Version>21.04.12</Version>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>21.04.*</AssemblyVersion>
     <FileVersion>21.04</FileVersion>
@@ -31,11 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MSPro.CLArgs" Version="1.2104.12.1" />
     <PackageReference Include="NLog" Version="4.7.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
     <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj" />
   </ItemGroup>
 
