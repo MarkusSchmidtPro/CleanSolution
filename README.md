@@ -1,9 +1,9 @@
 # CleanSolution
-First of all, *CleanSolution* is a  [CLArgs - the Command-Line Parser](https://github.com/msc4266/CLArgs) demo application. `CLArgs` completely covers all command-line related topics so that you can focus on cleaning a directory, which is finally not more than ~30 line of code. 
+First of all, *CleanSolution* is a  [CLArgs - the Command-Line Parser](https://github.com/msc4266/CLArgs) demo application. `CLArgs` completely covers all command-line related topics so that you can focus on cleaning a directory, which is finally not more than ~30 lines of code. 
 
 Second of all, *CleanSolution* is a great too to clean your directories. 
 
-> Personally, I use *CleanSolution* to remove all 'unnecessary' files and folders from my Visual Studio Solution folders before I zip or ship source-code from time to time. I also use it for *Dart /Flutter* application (with a different "Profile"), as well as in other situations. You can easily create and use your own cleansing profiles for different purposes. One profile is included: `sln.profile` - more see below.
+> Personally, I use *CleanSolution* to remove all 'unnecessary' files and folders from my Visual Studio Solution folders before I zip or ship source-code from time to time. I also use it for *Dart /Flutter* applications (with a different "Profile"), as well as in other situations. You can easily create and use your own cleansing profiles for different purposes. One profile is included: `sln.profile` - more see below.
 
 ## How to use it
 
