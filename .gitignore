@@ -12,6 +12,7 @@
 *.User
 /src/MSPro.CLArgs/Schmidt_e-Services.snk
 tools/docFX/
+pub/
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -345,3 +346,4 @@ healthchecksdb
 
 *.user
 *.DotSettings
+/pub
