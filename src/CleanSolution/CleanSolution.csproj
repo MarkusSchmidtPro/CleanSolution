@@ -36,7 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj" />
+    <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

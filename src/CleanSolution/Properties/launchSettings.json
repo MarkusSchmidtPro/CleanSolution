@@ -7,7 +7,8 @@
     },
     "CleanSolution with SLN profile": {
       "commandName": "Project",
-      "commandLineArgs": "@flutter.profile /t=false t:\\FlutterTest"
+      "commandLineArgs": "/t=false @flutter.profile",
+      "workingDirectory": "C:\\vStudio\\_DevOps\\Mobile\\app02\\src"
     },
     "Display All Commands - Help": {
       "commandName": "Project"

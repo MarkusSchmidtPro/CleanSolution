@@ -95,13 +95,13 @@ namespace CleanSolution.Command
         {
             if (context.Directories.Count == 0)
             {
-                // "No target directory specified");
+                Log.Info($"No target directory specified, using '{Environment.CurrentDirectory}'");
                 context.Directories.Add(Environment.CurrentDirectory);
             }
 
             string firstTarget = context.Directories.First();
             if (!Directory.Exists(firstTarget))
-                errors.AddError(nameof(context.Directories), $"Specified target directory {firstTarget} not found!");
+                errors.AddError(nameof(context.Directories), $"Specified target directory '{firstTarget}' not found!");
         }
     }
 }
