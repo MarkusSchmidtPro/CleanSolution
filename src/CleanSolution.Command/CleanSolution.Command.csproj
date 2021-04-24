@@ -22,6 +22,10 @@
     <Content Include="sln.profile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Remove="flutter.profile" />
+    <Content Include="flutter.profile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

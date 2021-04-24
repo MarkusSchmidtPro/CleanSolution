@@ -7,7 +7,7 @@
     },
     "CleanSolution with SLN profile": {
       "commandName": "Project",
-      "commandLineArgs": "@sln.profile /t t:\\CleanFolders"
+      "commandLineArgs": "@flutter.profile /t=false t:\\FlutterTest"
     },
     "Display All Commands - Help": {
       "commandName": "Project"

@@ -68,12 +68,12 @@ namespace CleanSolution.Command
         private void deleteDirectory(string dirRelativePath)
         {
             Log.Info($"RD: {dirRelativePath}");
-            if (!_context.Test) { Directory.Delete(getFullPath(dirRelativePath)); }
+            if (!_context.Test) { Directory.Delete(getFullPath(dirRelativePath),true); }
         }
 
 
 
-        private string getFullPath(string relativePath) => Path.Combine(_root, relativePath);
+        private string getFullPath(string relativePath) => Path.Combine(_root, !relativePath.StartsWith("\\")?relativePath:relativePath.Substring(1));
 
 
         /// <summary>

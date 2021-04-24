@@ -23,8 +23,8 @@ namespace CleanSolution.Command.Services
 
         public ParseDirectory(
             string rootPath,
-            [NotNull] List<string> deletionPatterns,
-            [NotNull] List<string> ignorePatterns,
+            [NotNull] IEnumerable<string> deletionPatterns,
+            [NotNull] IEnumerable<string> ignorePatterns,
             Action<string> deleteDirectoryAction,
             Action<string> excludeDirectoryAction,
             Action<string> deleteFileAction
