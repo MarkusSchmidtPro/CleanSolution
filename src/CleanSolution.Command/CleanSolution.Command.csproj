@@ -29,8 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2104.12.1" />
     <PackageReference Include="NLog" Version="4.7.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Users\Public\Documents\Sync\Daten\_gitHub\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
   </ItemGroup>
 
 </Project>

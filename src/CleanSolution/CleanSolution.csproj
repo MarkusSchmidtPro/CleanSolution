@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2104.12.1" />
     <PackageReference Include="NLog" Version="4.7.9" />
   </ItemGroup>
 

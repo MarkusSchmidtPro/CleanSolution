@@ -47,8 +47,7 @@ namespace CleanSolution
                 Commander.ExecuteCommand(args, new Settings
                 {
                     CommandResolver = new AssemblyCommandResolver(assemblyFileNames),
-                    IgnoreCase = true,
-                    OptionValueTags = new[] {'=', ':'} // <<< support, targets to Context
+                    IgnoreCase = true
                 });
 
                 appResult = AppReturnCode.Success;
