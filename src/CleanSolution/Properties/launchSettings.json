@@ -1,21 +1,26 @@
 {
   "profiles": {
-    "CleanSolution": {
+    "Clean with command-line": {
       "commandName": "Project",
       "commandLineArgs": "/p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\"",
       "workingDirectory": "t:\\CleanFolders"
     },
-    "CleanSolution with SLN profile": {
+    "Clean with profile": {
       "commandName": "Project",
-      "commandLineArgs": "/t=false @flutter.profile",
+      "commandLineArgs": "/t=false @sln.profile",
       "workingDirectory": "C:\\vStudio\\_DevOps\\Mobile\\app02\\src"
     },
-    "Display All Commands - Help": {
-      "commandName": "Project"
-    },
-    "Display Single Command Options Help": {
+    "Show commands": {
       "commandName": "Project",
-      "commandLineArgs": "/help"
+      "commandLineArgs": "/?"
+    },
+    "Display Command Help": {
+      "commandName": "Project",
+      "commandLineArgs": "CleanSolution /help"
+    },
+    "List command-line arguments": {
+      "commandName": "Project",
+      "commandLineArgs": "clargs-list @sln.profile /p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\""
     }
   }
 }
