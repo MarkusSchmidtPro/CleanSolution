@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanSolution", "CleanSolut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanSolution.Command", "CleanSolution.Command\CleanSolution.Command.csproj", "{1D28ADB0-437D-4EE7-8617-FC6B417E388D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSPro.CLArgs", "..\..\..\..\Users\Public\Documents\Sync\Daten\_gitHub\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj", "{CF18D973-A8D5-4AFC-A12B-2BFADD72D6F6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF18D973-A8D5-4AFC-A12B-2BFADD72D6F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF18D973-A8D5-4AFC-A12B-2BFADD72D6F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF18D973-A8D5-4AFC-A12B-2BFADD72D6F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF18D973-A8D5-4AFC-A12B-2BFADD72D6F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

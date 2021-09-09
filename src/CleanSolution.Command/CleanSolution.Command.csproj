@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Version>21.04.09</Version>
+    <LangVersion>default</LangVersion>
+    <Version>21.09.09</Version>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>21.04.*</AssemblyVersion>
-    <FileVersion>21.04</FileVersion>
+    <AssemblyVersion>21.09.*</AssemblyVersion>
+    <FileVersion>21.09</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
@@ -29,11 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.7.9" />
+    <PackageReference Include="MSPro.CLArgs" Version="1.2109.7" />
+    <PackageReference Include="NLog" Version="4.7.11" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Users\Public\Documents\Sync\Daten\_gitHub\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
-  </ItemGroup>
-
 </Project>

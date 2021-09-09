@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>default</LangVersion>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>21.04.12</Version>
+    <Version>21.09.09</Version>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>21.04.*</AssemblyVersion>
-    <FileVersion>21.04</FileVersion>
+    <AssemblyVersion>21.09.*</AssemblyVersion>
+    <FileVersion>21.09</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
@@ -31,7 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.7.9" />
+    <PackageReference Include="MSPro.CLArgs" Version="1.2109.7" />
+    <PackageReference Include="NLog" Version="4.7.11" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,11 +40,4 @@
       <Private>true</Private>
     </ProjectReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Program.cs">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Compile>
-  </ItemGroup>
-
 </Project>
