@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <LangVersion>default</LangVersion>
     <Version>21.09.09</Version>
     <Deterministic>false</Deterministic>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2109.7" />
-    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="MSPro.CLArgs" Version="1.2112.2" />
+    <PackageReference Include="NLog" Version="4.7.13" />
   </ItemGroup>
 </Project>

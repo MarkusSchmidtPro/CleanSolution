@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <LangVersion>default</LangVersion>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Version>21.09.09</Version>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>21.09.*</AssemblyVersion>
@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2109.7" />
-    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="MSPro.CLArgs" Version="1.2112.2" />
+    <PackageReference Include="NLog" Version="4.7.13" />
   </ItemGroup>
 
   <ItemGroup>
