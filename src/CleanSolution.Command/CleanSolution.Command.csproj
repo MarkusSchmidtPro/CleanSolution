@@ -15,10 +15,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="cs.bat" />
     <None Remove="sln.profile" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="cs.bat" />
     <Content Include="sln.profile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -30,6 +32,6 @@
 
   <ItemGroup>
     <PackageReference Include="MSPro.CLArgs" Version="1.2112.2" />
-    <PackageReference Include="NLog" Version="4.7.13" />
+    <PackageReference Include="NLog" Version="5.0.0" />
   </ItemGroup>
 </Project>
