@@ -18,13 +18,12 @@ namespace CleanSolution.Command
             "|by deleting all files that match a given pattern." +
             "|You can perfectly use this command to clean a Visual Studio Solution directory before you ship it." +
             " Delete, for example, all .git, .vs folders or *.user files.")]
-    internal class Command : CommandBase<CommandContext>
+    internal class Command : CommandBase<CommandContext>, ICommand2
     {
         private const string COMMAND_NAME = "CleanSolution";
         private CommandContext _context;
         private string _root;
         private static ILogger Log => LogManager.GetLogger("CleanSolution");
-
 
 
         protected override void Execute(CommandContext context)
@@ -102,6 +101,11 @@ namespace CleanSolution.Command
             string firstTarget = context.Directories.First();
             if (!Directory.Exists(firstTarget))
                 errors.AddError(nameof(context.Directories), $"Specified target directory '{firstTarget}' not found!");
+        }
+
+        public void Execute()
+        {
+            throw new NotImplementedException();
         }
     }
 }

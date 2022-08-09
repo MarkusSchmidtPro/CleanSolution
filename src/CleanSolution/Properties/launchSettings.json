@@ -12,7 +12,7 @@
     },
     "Show commands": {
       "commandName": "Project",
-      "commandLineArgs": "/?"
+      "commandLineArgs": "VERB1"
     },
     "Display Command Help": {
       "commandName": "Project",

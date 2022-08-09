@@ -3,39 +3,43 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <LangVersion>default</LangVersion>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Version>21.09.09</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>2.08.08</Version>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>21.09.*</AssemblyVersion>
-    <FileVersion>21.09</FileVersion>
+    <AssemblyVersion>2.08.*</AssemblyVersion>
+    <FileVersion>2.08</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
-    <Copyright>Copyright (c) 2021, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
     <ApplicationIcon>CLArgs.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+    <None Remove="appsettings.Production.json" />
     <None Remove="CLArgs.ico" />
-    <None Remove="nlog.debug.config" />
-    <None Remove="nlog.release.config" />
+	      
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="nlog.debug.config">
+    <Content Include="appsettings.Development.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="nlog.release.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="appsettings.Production.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSPro.CLArgs" Version="1.2112.2" />
-    <PackageReference Include="NLog" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="NLog" Version="5.0.1" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
     <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj">
       <Private>true</Private>
     </ProjectReference>

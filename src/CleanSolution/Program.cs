@@ -1,99 +1,96 @@
 ﻿using System;
 using System.IO;
-using MSPro.CLArgs;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog;
-using NLog.Config;
+using NLog.Extensions.Logging;
+using ILogger = NLog.ILogger;
 
+namespace CleanSolution;
 
-
-namespace CleanSolution
+/// <summary>
+///     The program as a console Application acts as a host, only.
+/// </summary>
+/// <remarks>
+///     It takes the command line arguments, scans for available Command
+///     implementations in the application's directory (see SEARCH_PATTERN).
+///     Finally, it runs the command as specified in the command line (ref Verb).
+/// </remarks>
+internal class Program
 {
-    /// <summary>
-    ///     The program as a console Application acts as a host, only.
-    /// </summary>
-    /// <remarks>
-    ///     It takes the command line arguments, scans for available Command
-    ///     implementations in the application's directory (see SEARCH_PATTERN).
-    ///     Finally, it runs the command as specified in the command line (ref Verb).
-    /// </remarks>
-    internal class Program
+    public static async Task Main(string[] args)
     {
-        private const string SEARCH_PATTERN = "CleanSolution.Command*.dll";
-        private static ILogger ConsoleLog => LogManager.GetLogger("Console");
-        private static ILogger Log => LogManager.GetLogger("Program");
-
-
-
-        private static int Main(string[] args)
-        {
 #if DEBUG
-            string configFileName = "nlog.debug.config";
+        string environment = "Development";
 #else
-            string configFileName = "nlog.release.config";
+        string environment = "Production";
 #endif
-            string fileName = Helper.FindFile(configFileName, Environment.CurrentDirectory, Helper.BinDir);
-            LogManager.Configuration = new XmlLoggingConfiguration(fileName);
-            Log.Debug($"Bin Dir={Helper.BinDir}");
+        var nLogConfig = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .AddJsonFile($"appsettings.{environment}.json", true, true)
+            .Build();
 
-            AppReturnCode appResult;
-            ConsoleLog.Info(AssemblyInfo.ToString());
-            try
+
+        // Provides default configuration for the app
+        // https://docs.microsoft.com/en-us/dotnet/core/extensions/configuration
+        IHostBuilder builder = Host.CreateDefaultBuilder()
+            .ConfigureServices(services =>
             {
-                // The directory of the AppDomain - does not work for self-contained executables
-                var assemblyFileNames = Directory.GetFiles(
-                    AppDomain.CurrentDomain.BaseDirectory, SEARCH_PATTERN,
-                    SearchOption.AllDirectories);
-
-                Commander.ExecuteCommand(args, new Settings
+                services.AddTransient<CLArgsService>();
+                services.AddLogging(loggingBuilder =>
                 {
-                    CommandResolver = new AssemblyCommandResolver(assemblyFileNames),
-                    IgnoreCase = true
+                    // configure Logging with NLog
+                    loggingBuilder.ClearProviders();
+                    loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                    loggingBuilder.AddNLog(nLogConfig);
                 });
+            })
+        .UseConsoleLifetime();
 
-                appResult = AppReturnCode.Success;
-            }
+        ILogger logger = LogManager.GetCurrentClassLogger();
 
-
-
-            #region Exception Handling
-
-            catch (AggregateException ex)
+        try
+        {
+            var host = builder.Build();
+            logger.Info("App Starts..");
+            using var serviceScope = host.Services.CreateScope();
             {
-                Log.Error(ex);
-                appResult = AppReturnCode.AppException;
-                ConsoleLog.Error<Exception>("Unexpected termination!", ex);
-                foreach (Exception innerException in ex.InnerExceptions)
-                {
-                    //Console.WriteLine(innerException.Message);
-                    ConsoleLog.Warn(innerException.Message);
-                }
+                var services = serviceScope.ServiceProvider;
+                var myService = services.GetRequiredService<CLArgsService>();
+                await myService.ExecuteAsync();
             }
+        }
 
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-                ConsoleLog.Error(ex.Message);
-                appResult = AppReturnCode.AppException;
-            }
+        #region Exception Handling
 
-            #endregion
+        catch (AggregateException ex)
+        {
+            logger.Error(ex);
+            logger.Error<Exception>("Unexpected termination!", ex);
+            foreach (var innerException in ex.InnerExceptions) logger.Warn(innerException.Message);
+        }
 
+        catch (Exception ex)
+        {
+            logger.Error(ex);
+            logger.Error(ex.Message);
+        }
+        finally
+        {
+            LogManager.Shutdown();
+        }
+
+        #endregion
 
 
 #if DEBUG
-            Console.WriteLine();
-            Console.WriteLine(@"Press 'eniki'...");
-            Console.ReadKey();
+        Console.WriteLine();
+        Console.WriteLine(@"Press 'eniki'...");
+        Console.ReadKey();
 #endif
-            return Convert.ToInt32(appResult);
-        }
-    }
-
-
-
-    internal enum AppReturnCode
-    {
-        Success = 0,
-        AppException = -1
     }
 }
