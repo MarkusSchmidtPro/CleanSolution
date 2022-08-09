@@ -24,9 +24,6 @@ public class CLArgsService
     {
         _logger.LogInformation(AssemblyInfo.ToString());
         _logger.LogDebug($"Content Root={_env.ContentRootPath}");
-        string[] assemblyFileNames = Directory.GetFiles(
-            _env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories);
-
 
         var builder = CommandBuilder.Create(); // = Commander.ResolveCommands(new AssemblyCommandResolver(assemblyFileNames));
         builder.Configure(settings =>
@@ -36,7 +33,8 @@ public class CLArgsService
         builder.ConfigureCommands(commands =>
         {
             commands.AddDescriptor(new CommandDescriptor2("VERB1", typeof(MyCommand)));
-            commands.AddAssemblies(new AssemblyCommandResolver2(assemblyFileNames));
+            commands.AddAssemblies(new AssemblyCommandResolver2(Directory.GetFiles(
+            _env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories)));
         });
         builder.ConfigureCommandlineArguments((arguments, settings) =>
         {

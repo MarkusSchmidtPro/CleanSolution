@@ -87,24 +87,22 @@ namespace CleanSolution.Command
         /// Errors can be collected and many errors can be reported to the user. CLArgs will takes care
         /// of reporting errors. Simply collect them.
         /// </remarks>
-        /// <param name="context"></param>
         /// <param name="unresolvedPropertyNames"></param>
         /// <param name="errors"></param>
-        /*protected override void BeforeExecute(
-            CommandContext context,
+        protected override void BeforeExecute(
             HashSet<string> unresolvedPropertyNames,
             ErrorDetailList errors)
         {
-            if (context.Directories.Count == 0)
+            if (Context.Directories.Count == 0)
             {
                 Log.Info($"No target directory specified, using '{Environment.CurrentDirectory}'");
-                context.Directories.Add(Environment.CurrentDirectory);
+                Context.Directories.Add(Environment.CurrentDirectory);
             }
 
-            string firstTarget = context.Directories.First();
+            string firstTarget = Context.Directories.First();
             if (!Directory.Exists(firstTarget))
-                errors.AddError(nameof(context.Directories), $"Specified target directory '{firstTarget}' not found!");
-        }*/
+                errors.AddError(nameof(Context.Directories), $"Specified target directory '{firstTarget}' not found!");
+        }
 
      /*   public Command( ContextBuilder contextBuilder)
         {
@@ -119,27 +117,4 @@ namespace CleanSolution.Command
             throw new NotImplementedException();
         }*/
     }
-}
-
-public abstract class CommandBase2<TContext> : ICommand2
-{
-    private readonly ContextBuilder _contextBuilder;
-
-    protected CommandBase2( ContextBuilder contextBuilder)
-    {
-        _contextBuilder = contextBuilder;
-    }
-
-    protected TContext Context { get; set; }
-
-    void ICommand2.Execute()
-    {
-        var errors = _contextBuilder.TryConvert(typeof(TContext),
-            out object executionContext,
-            out HashSet<string> unresolvedPropertyNames);
-        Context = (TContext)executionContext;
-        this.Execute();
-    }
-
-    protected abstract void Execute();
 }
