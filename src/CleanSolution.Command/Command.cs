@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using CleanSolution.Command;
 using CleanSolution.Command.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MSPro.CLArgs;
-using NLog;
 
 
 
 namespace CleanSolution.Command
 {
     // '|' represents a line-break when displaying help.
+
+
 
     [Command(COMMAND_NAME,
         HelpText =
@@ -23,98 +24,86 @@ namespace CleanSolution.Command
     public class Command : CommandBase2<CommandContext>
     {
         private const string COMMAND_NAME = "CleanSolution";
+        private readonly ILogger<Command> _logger;
         private string _root;
-        private static ILogger Log => LogManager.GetLogger("CleanSolution");
 
-        public Command(ContextBuilder contextBuilder) : base(contextBuilder)
+
+
+        public Command(IServiceProvider serviceProvider, ILogger<Command> logger) : base(serviceProvider)
         {
-            
+            _logger = logger;
         }
+
+
+
         protected override void Execute()
         {
-            Log.Info($"Ccommand '{COMMAND_NAME}'");
-            Log.Info($"Pattern: '{string.Join(';', Context.IncludePattern)}'");
-            Log.Info($"Ignore : '{string.Join(';', Context.ExcludePatterns)}'");
-            Log.Info($"Test   : '{Context.Test}'");
+            _logger.LogInformation($"Command '{COMMAND_NAME}'");
+            _logger.LogInformation($"Pattern: '{string.Join(';', this.Context.IncludePattern)}'");
+            _logger.LogInformation($"Ignore : '{string.Join(';', this.Context.ExcludePatterns)}'");
+            _logger.LogInformation($"Test   : '{this.Context.Test}'");
 
-            _root = Context.Directories.First();
-            Log.Info($"Root   : {_root}");
+            _root = this.Context.Directories.First();
+            _logger.LogInformation($"Root   : {_root}");
 
-            ParseDirectory directoryParser = new(_root,
-                Context.IncludePatterns,
-                Context.ExcludePatterns,
-                deleteDirectory, excludeDirectory, deleteFile
+            ParseDirectory directoryParser = new(_root, this.Context.IncludePatterns, this.Context.ExcludePatterns,
+                deleteDirectory, excludeDirectory, deleteFile, _logger
             );
 
             directoryParser.Execute();
-            Log.Info("--- DONE! ---");
+            _logger.LogInformation("--- DONE! ---");
         }
 
 
 
         private void deleteFile(string fileRelativePath)
         {
-            Log.Info($"DEL {fileRelativePath}");
-            if (!Context.Test) { File.Delete(getFullPath(fileRelativePath)); }
+            _logger.LogInformation($"DEL {fileRelativePath}");
+            if (!this.Context.Test) { File.Delete(getFullPath(fileRelativePath)); }
         }
 
 
 
-        private void excludeDirectory(string dirRelativePath)
-        {
-            Log.Info($"EX: {dirRelativePath}");
-        }
+        private void excludeDirectory(string dirRelativePath) 
+            => _logger.LogInformation($"EX: {dirRelativePath}");
 
 
 
         private void deleteDirectory(string dirRelativePath)
         {
-            Log.Info($"RD: {dirRelativePath}");
-            if (!Context.Test) { Directory.Delete(getFullPath(dirRelativePath),true); }
+            _logger.LogInformation($"RD: {dirRelativePath}");
+            if (!this.Context.Test) { Directory.Delete(getFullPath(dirRelativePath), true); }
         }
 
 
 
-        private string getFullPath(string relativePath) => Path.Combine(_root, !relativePath.StartsWith("\\")?relativePath:relativePath.Substring(1));
+        private string getFullPath(string relativePath) 
+            => Path.Combine(_root, !relativePath.StartsWith("\\") ? relativePath : relativePath.Substring(1));
+
 
 
         /// <summary>
-        /// Check command-line arguments - passed to the Command as a typed Context - before
-        /// the Command itself is actually executed.
+        ///     Check command-line arguments - passed to the Command as a typed Context - before
+        ///     the Command itself is actually executed.
         /// </summary>
         /// <remarks>
-        /// Add errors to the <paramref name="errors"></paramref> list, instead of throwing exceptions.
-        /// Errors can be collected and many errors can be reported to the user. CLArgs will takes care
-        /// of reporting errors. Simply collect them.
+        ///     Add errors to the <paramref name="errors"></paramref> list, instead of throwing exceptions.
+        ///     Errors can be collected and many errors can be reported to the user. CLArgs will takes care
+        ///     of reporting errors. Simply collect them.
         /// </remarks>
-        /// <param name="unresolvedPropertyNames"></param>
-        /// <param name="errors"></param>
         protected override void BeforeExecute(
             HashSet<string> unresolvedPropertyNames,
             ErrorDetailList errors)
         {
-            if (Context.Directories.Count == 0)
+            if (this.Context.Directories.Count == 0)
             {
-                Log.Info($"No target directory specified, using '{Environment.CurrentDirectory}'");
-                Context.Directories.Add(Environment.CurrentDirectory);
+                _logger.LogInformation($"No target directory specified, using '{Environment.CurrentDirectory}'");
+                this.Context.Directories.Add(Environment.CurrentDirectory);
             }
 
-            string firstTarget = Context.Directories.First();
+            string firstTarget = this.Context.Directories.First();
             if (!Directory.Exists(firstTarget))
-                errors.AddError(nameof(Context.Directories), $"Specified target directory '{firstTarget}' not found!");
+                errors.AddError(nameof(this.Context.Directories), $"Specified target directory '{firstTarget}' not found!");
         }
-
-     /*   public Command( ContextBuilder contextBuilder)
-        {
-            var errors = contextBuilder.TryConvert(typeof(CommandContext),
-                out object executionContext,
-                out HashSet<string> unresolvedPropertyNames);
-            CommandContext context = (CommandContext)executionContext;
-        }
-
-        public void Execute()
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }

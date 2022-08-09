@@ -74,6 +74,10 @@ internal class Program
             foreach (var innerException in ex.InnerExceptions) logger.Warn(innerException.Message);
         }
 
+        catch (ApplicationException ex)
+        {
+            logger.Error(ex.Message);
+        }  
         catch (Exception ex)
         {
             logger.Error(ex);

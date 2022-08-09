@@ -2,8 +2,7 @@
   "profiles": {
     "Clean with command-line": {
       "commandName": "Project",
-      "commandLineArgs": "/p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\"",
-      "workingDirectory": "t:\\CleanFolders"
+      "commandLineArgs": "CleanSolution /p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\""
     },
     "Clean with profile": {
       "commandName": "Project",
@@ -21,6 +20,10 @@
     "List command-line arguments": {
       "commandName": "Project",
       "commandLineArgs": "clargs-list @sln.profile /p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\""
+    },
+    "Profile 1": {
+      "commandName": "Project",
+      "commandLineArgs": "VERB1"
     }
   }
 }

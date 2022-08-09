@@ -20,6 +20,7 @@
     <None Remove="appsettings.json" />
     <None Remove="appsettings.Production.json" />
     <None Remove="CLArgs.ico" />
+    <None Remove="nlog.Commands.config" />
 	      
   </ItemGroup>
 
@@ -29,6 +30,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="appsettings.Production.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="nlog.Commands.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

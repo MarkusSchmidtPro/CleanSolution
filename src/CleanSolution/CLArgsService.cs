@@ -1,9 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MSPro.CLArgs;
+using NLog.Extensions.Logging;
+
+
 
 namespace CleanSolution;
 
@@ -14,11 +17,15 @@ public class CLArgsService
 
     private readonly ILogger<CLArgsService> _logger;
 
+
+
     public CLArgsService(ILogger<CLArgsService> logger, IHostEnvironment env)
     {
         _logger = logger;
         _env = env;
     }
+
+
 
     public Task ExecuteAsync()
     {
@@ -26,34 +33,26 @@ public class CLArgsService
         _logger.LogDebug($"Content Root={_env.ContentRootPath}");
 
         var builder = CommandBuilder.Create(); // = Commander.ResolveCommands(new AssemblyCommandResolver(assemblyFileNames));
-        builder.Configure(settings =>
-        {
-            settings.IgnoreCase = true;
-        });
+        //  builder.Configure(settings => settings.IgnoreCase = true);
         builder.ConfigureCommands(commands =>
         {
-            commands.AddDescriptor(new CommandDescriptor2("VERB1", typeof(MyCommand)));
             commands.AddAssemblies(new AssemblyCommandResolver2(Directory.GetFiles(
-            _env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories)));
+                _env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories)));
         });
-        builder.ConfigureCommandlineArguments((arguments, settings) =>
-        {
-            arguments.AddArguments(Environment.GetCommandLineArgs(), settings);
-        });
+        //builder.ConfigureCommandlineArguments((arguments, settings) =>
+        //  arguments.AddArguments(Environment.GetCommandLineArgs(), settings);
+        //);
+
+        builder.ConfigureServices((services, settings) =>
+            services.AddLogging(loggingBuilder =>
+            {
+                // configure Logging with NLog
+                loggingBuilder.ClearProviders();
+                loggingBuilder.SetMinimumLevel(LogLevel.Trace);
+                loggingBuilder.AddNLog("nlog.Commands.config");
+            }));
         Commander2 commander = builder.Build();
-        commander.ExecuteCommand();
+        commander.Execute();
         return Task.CompletedTask;
-    }
-}
-
-public class MyCommand : ICommand2
-{
-    public MyCommand(ICommandlineArgumentCollection clArgs)
-    {
-        
-    }
-
-    public void Execute()
-    {
     }
 }
