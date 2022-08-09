@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using CleanSolution.Command;
 using CleanSolution.Command.Services;
 using MSPro.CLArgs;
 using NLog;
@@ -18,28 +20,29 @@ namespace CleanSolution.Command
             "|by deleting all files that match a given pattern." +
             "|You can perfectly use this command to clean a Visual Studio Solution directory before you ship it." +
             " Delete, for example, all .git, .vs folders or *.user files.")]
-    internal class Command : CommandBase<CommandContext>, ICommand2
+    public class Command : CommandBase2<CommandContext>
     {
         private const string COMMAND_NAME = "CleanSolution";
-        private CommandContext _context;
         private string _root;
         private static ILogger Log => LogManager.GetLogger("CleanSolution");
 
-
-        protected override void Execute(CommandContext context)
+        public Command(ContextBuilder contextBuilder) : base(contextBuilder)
         {
-            _context = context;
+            
+        }
+        protected override void Execute()
+        {
             Log.Info($"Ccommand '{COMMAND_NAME}'");
-            Log.Info($"Pattern: '{string.Join(';', context.IncludePattern)}'");
-            Log.Info($"Ignore : '{string.Join(';', context.ExcludePatterns)}'");
-            Log.Info($"Test   : '{context.Test}'");
+            Log.Info($"Pattern: '{string.Join(';', Context.IncludePattern)}'");
+            Log.Info($"Ignore : '{string.Join(';', Context.ExcludePatterns)}'");
+            Log.Info($"Test   : '{Context.Test}'");
 
-            _root = context.Directories.First();
+            _root = Context.Directories.First();
             Log.Info($"Root   : {_root}");
 
             ParseDirectory directoryParser = new(_root,
-                context.IncludePatterns,
-                context.ExcludePatterns,
+                Context.IncludePatterns,
+                Context.ExcludePatterns,
                 deleteDirectory, excludeDirectory, deleteFile
             );
 
@@ -52,7 +55,7 @@ namespace CleanSolution.Command
         private void deleteFile(string fileRelativePath)
         {
             Log.Info($"DEL {fileRelativePath}");
-            if (!_context.Test) { File.Delete(getFullPath(fileRelativePath)); }
+            if (!Context.Test) { File.Delete(getFullPath(fileRelativePath)); }
         }
 
 
@@ -67,7 +70,7 @@ namespace CleanSolution.Command
         private void deleteDirectory(string dirRelativePath)
         {
             Log.Info($"RD: {dirRelativePath}");
-            if (!_context.Test) { Directory.Delete(getFullPath(dirRelativePath),true); }
+            if (!Context.Test) { Directory.Delete(getFullPath(dirRelativePath),true); }
         }
 
 
@@ -87,7 +90,7 @@ namespace CleanSolution.Command
         /// <param name="context"></param>
         /// <param name="unresolvedPropertyNames"></param>
         /// <param name="errors"></param>
-        protected override void BeforeExecute(
+        /*protected override void BeforeExecute(
             CommandContext context,
             HashSet<string> unresolvedPropertyNames,
             ErrorDetailList errors)
@@ -101,11 +104,42 @@ namespace CleanSolution.Command
             string firstTarget = context.Directories.First();
             if (!Directory.Exists(firstTarget))
                 errors.AddError(nameof(context.Directories), $"Specified target directory '{firstTarget}' not found!");
+        }*/
+
+     /*   public Command( ContextBuilder contextBuilder)
+        {
+            var errors = contextBuilder.TryConvert(typeof(CommandContext),
+                out object executionContext,
+                out HashSet<string> unresolvedPropertyNames);
+            CommandContext context = (CommandContext)executionContext;
         }
 
         public void Execute()
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
+}
+
+public abstract class CommandBase2<TContext> : ICommand2
+{
+    private readonly ContextBuilder _contextBuilder;
+
+    protected CommandBase2( ContextBuilder contextBuilder)
+    {
+        _contextBuilder = contextBuilder;
+    }
+
+    protected TContext Context { get; set; }
+
+    void ICommand2.Execute()
+    {
+        var errors = _contextBuilder.TryConvert(typeof(TContext),
+            out object executionContext,
+            out HashSet<string> unresolvedPropertyNames);
+        Context = (TContext)executionContext;
+        this.Execute();
+    }
+
+    protected abstract void Execute();
 }

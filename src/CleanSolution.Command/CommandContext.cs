@@ -13,7 +13,7 @@ namespace CleanSolution.Command
     /// argument during run-time. <i>CLArgs</i> does the work, like magic, to turn
     /// command-line arguments into a context.
     /// </remarks>
-    internal class CommandContext
+    public class CommandContext
     {
         [Targets]
         public List<string> Directories { get; set; } = new();
