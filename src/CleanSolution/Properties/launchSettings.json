@@ -6,8 +6,7 @@
     },
     "Clean with profile": {
       "commandName": "Project",
-      "commandLineArgs": "CLEANSOLUTION @sln.profile",
-      "workingDirectory": "c:\\vStudio\\moonlit"
+      "commandLineArgs": "CLEANSOLUTION @sln.profile"
     },
     "Show commands": {
       "commandName": "Project",
