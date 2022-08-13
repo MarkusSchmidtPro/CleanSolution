@@ -30,7 +30,7 @@ public class CLArgsService
     public Task ExecuteAsync()
     {
         _logger.LogInformation(AssemblyInfo.ToString());
-        _logger.LogDebug($"Content Root={_env.ContentRootPath}");
+        _logger.LogDebug("Content Root={_envContentRootPath}", _env.ContentRootPath);
 
         var builder = CommandBuilder.Create(); // = Commander.ResolveCommands(new AssemblyCommandResolver(assemblyFileNames));
         //  builder.Configure(settings => settings.IgnoreCase = true);
