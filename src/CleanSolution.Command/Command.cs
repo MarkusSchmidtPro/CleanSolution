@@ -35,7 +35,7 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
     protected override void Execute()
     {
         _logger.LogInformation($"Command '{COMMAND_NAME}'");
-        _logger.LogInformation("Pattern: '{Join}'", string.Join(';', this.Context.IncludePattern));
+        _logger.LogInformation("Pattern: '{Join}'", string.Join(';', this.Context.IncludePatterns));
         _logger.LogInformation("Ignore : \'{Join}\'", string.Join(';', this.Context.ExcludePatterns));
         _logger.LogInformation("Test   : \'{ContextTest}\'", this.Context.Test);
 
