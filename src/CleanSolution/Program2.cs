@@ -28,7 +28,7 @@ internal class Program
 #else
         string environment = "Production";
 #endif
-        var nLogConfig = new ConfigurationBuilder()
+        var nLogApplicationConfig = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true)
             .AddJsonFile($"appsettings.{environment}.json", true, true)
@@ -45,8 +45,7 @@ internal class Program
                 {
                     // configure Logging with NLog
                     loggingBuilder.ClearProviders();
-                    loggingBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                    loggingBuilder.AddNLog(nLogConfig);
+                    loggingBuilder.AddNLog(nLogApplicationConfig);
                 });
             })
         .UseConsoleLifetime();

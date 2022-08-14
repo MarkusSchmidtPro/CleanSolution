@@ -30,10 +30,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="appsettings.Production.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
-    <Content Include="nlog.Commands.config">
+    <None Remove="nlog.Development.config" />
+    <Content Include="nlog.Development.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="nlog.config">
+    <None Remove="nlog.Production.config" />
+    <Content Include="nlog.Production.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

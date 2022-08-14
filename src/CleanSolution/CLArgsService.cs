@@ -22,7 +22,7 @@ public class CLArgsService
     public CLArgsService(ILogger<CLArgsService> logger, IHostEnvironment env)
     {
         _logger = logger;
-        _env = env;
+        _env    = env;
     }
 
 
@@ -36,21 +36,20 @@ public class CLArgsService
         //  builder.Configure(settings => settings.IgnoreCase = true);
         builder.ConfigureCommands(commands =>
         {
-            commands.AddAssemblies(new AssemblyCommandResolver2(Directory.GetFiles(
-                _env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories)));
+            commands.AddAssemblies(
+                Directory.GetFiles(_env.ContentRootPath, SEARCH_PATTERN, SearchOption.AllDirectories));
         });
         //builder.ConfigureCommandlineArguments((arguments, settings) =>
         //  arguments.AddArguments(Environment.GetCommandLineArgs(), settings);
         //);
 
-        builder.ConfigureServices((services, settings) =>
-            services.AddLogging(loggingBuilder =>
-            {
-                // configure Logging with NLog
-                loggingBuilder.ClearProviders();
-                loggingBuilder.SetMinimumLevel(LogLevel.Trace);
-                loggingBuilder.AddNLog("nlog.Commands.config");
-            }));
+        builder.ConfigureServices((services, _) =>
+                                      services.AddLogging(loggingBuilder =>
+                                      {
+                                          // configure Logging with NLog
+                                          loggingBuilder.ClearProviders();
+                                          loggingBuilder.AddNLog("nlog.Commands.config");
+                                      }));
         Commander2 commander = builder.Build();
         commander.Execute();
         return Task.CompletedTask;
