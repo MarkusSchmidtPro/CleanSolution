@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CleanSolution.Command.Services;
-using Microsoft.Extensions.Logging;
 using MSPro.CLArgs;
 
 
@@ -20,55 +19,59 @@ namespace CleanSolution.Command;
 public class CleanSolutionCommand : CommandBase2<CommandContext>
 {
     private const string COMMAND_NAME = "CleanSolution";
-    private readonly ILogger<CleanSolutionCommand> _logger;
     private string _root;
 
 
 
-    public CleanSolutionCommand(IServiceProvider serviceProvider, ILogger<CleanSolutionCommand> logger) : base(serviceProvider)
+    public CleanSolutionCommand(IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        _logger = logger;
     }
 
 
 
     protected override void Execute()
     {
-        _logger.LogInformation($"Command '{COMMAND_NAME}'");
-        _logger.LogInformation("Pattern: '{Join}'", string.Join(';', this.Context.IncludePatterns));
-        _logger.LogInformation("Ignore : \'{Join}\'", string.Join(';', this.Context.ExcludePatterns));
-        _logger.LogInformation("Test   : \'{ContextTest}\'", this.Context.Test);
+        Print.Info($"Command '{COMMAND_NAME}'");
+        Print.Info($"Pattern: '{string.Join(';', this.Context.IncludePatterns)}'");
+        Print.Info($"Ignore : \'{string.Join(';', this.Context.ExcludePatterns)}\'");
+        Print.Info($"Test   : \'{this.Context.Test}\'");
 
         _root = this.Context.Directories.First();
-        _logger.LogInformation($"Root   : {_root}");
+        Print.Info($"Root   : {_root}");
 
         ParseDirectory directoryParser = new(_root, this.Context.IncludePatterns, this.Context.ExcludePatterns,
-                                             deleteDirectory, excludeDirectory, deleteFile, _logger
+                                             deleteDirectory, excludeDirectory, deleteFile, Print
         );
 
         directoryParser.Execute();
-        _logger.LogInformation("--- DONE! ---");
+        Print.Info("--- DONE! ---");
     }
 
 
 
     private void deleteFile(string fileRelativePath)
     {
-        _logger.LogInformation($"DEL {fileRelativePath}");
-        if (!this.Context.Test) { File.Delete(getFullPath(fileRelativePath)); }
+        Print.Info($"DEL {fileRelativePath}");
+        if (!this.Context.Test)
+        {
+            File.Delete(getFullPath(fileRelativePath));
+        }
     }
 
 
 
     private void excludeDirectory(string dirRelativePath)
-        => _logger.LogInformation($"EX: {dirRelativePath}");
+        => Print.Info($"EX: {dirRelativePath}");
 
 
 
     private void deleteDirectory(string dirRelativePath)
     {
-        _logger.LogInformation($"RD: {dirRelativePath}");
-        if (!this.Context.Test) { Directory.Delete(getFullPath(dirRelativePath), true); }
+        Print.Info($"RD: {dirRelativePath}");
+        if (!this.Context.Test)
+        {
+            Directory.Delete(getFullPath(dirRelativePath), true);
+        }
     }
 
 
@@ -93,7 +96,7 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
     {
         if (this.Context.Directories.Count == 0)
         {
-            _logger.LogWarning($"No target directory specified, using '{Environment.CurrentDirectory}'");
+            Print.Warn($"No target directory specified, using '{Environment.CurrentDirectory}'");
             this.Context.Directories.Add(Environment.CurrentDirectory);
         }
 

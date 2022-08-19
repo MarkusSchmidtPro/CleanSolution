@@ -1,0 +1,45 @@
+<logexpert>
+  <project>
+    <members>
+      <member fileName="C:\Users\MarkusSchmidt\Documents\LogExpert\C__Gib_BC_Logs_boomiCommand.Log.lxp" />
+      <member fileName="C:\Users\MarkusSchmidt\Documents\LogExpert\C__vStudio_MSPro_GitHub_CleanSolution_src_CleanSolution_bin_Debug_net6.0_Logs_boomiCommand.Log.lxp" />
+    </members>
+  </project>
+  <layout>
+    <!--DockPanel configuration file. Author: Weifen Luo, all rights reserved.-->
+<!--!!! AUTOMATICALLY GENERATED FILE. DO NOT MODIFY !!!-->
+<DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.25" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="0" ActivePane="-1">
+  <Contents Count="2">
+    <Content ID="0" PersistString="LogWindow#C:\Gib\BC\Logs\boomiCommand.Log" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" />
+    <Content ID="1" PersistString="LogWindow#C:\vStudio\MSPro\GitHub\CleanSolution\src\CleanSolution\bin\Debug\net6.0\Logs\boomiCommand.Log" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" />
+  </Contents>
+  <Panes Count="1">
+    <Pane ID="0" DockState="Document" ActiveContent="1">
+      <Contents Count="2">
+        <Content ID="0" RefID="0" />
+        <Content ID="1" RefID="1" />
+      </Contents>
+    </Pane>
+  </Panes>
+  <DockWindows>
+    <DockWindow ID="0" DockState="Document" ZOrderIndex="1">
+      <NestedPanes Count="1">
+        <Pane ID="0" RefID="0" PrevPane="-1" Alignment="Right" Proportion="0.5" />
+      </NestedPanes>
+    </DockWindow>
+    <DockWindow ID="1" DockState="DockLeft" ZOrderIndex="2">
+      <NestedPanes Count="0" />
+    </DockWindow>
+    <DockWindow ID="2" DockState="DockRight" ZOrderIndex="3">
+      <NestedPanes Count="0" />
+    </DockWindow>
+    <DockWindow ID="3" DockState="DockTop" ZOrderIndex="4">
+      <NestedPanes Count="0" />
+    </DockWindow>
+    <DockWindow ID="4" DockState="DockBottom" ZOrderIndex="5">
+      <NestedPanes Count="0" />
+    </DockWindow>
+  </DockWindows>
+  <FloatWindows Count="0" />
+</DockPanel></layout>
+</logexpert>

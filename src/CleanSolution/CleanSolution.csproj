@@ -13,6 +13,7 @@
     <Product>CLArgs - Command Line Arguments</Product>
     <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
     <ApplicationIcon>CLArgs.ico</ApplicationIcon>
+    <PackageVersion>2.08.19</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,8 +44,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="NLog" Version="5.0.1" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="NLog" Version="5.0.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>

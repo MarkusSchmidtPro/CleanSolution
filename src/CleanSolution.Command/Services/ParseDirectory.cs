@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Microsoft.Extensions.Logging;
 
 
 
@@ -14,7 +13,7 @@ namespace CleanSolution.Command.Services
         private readonly Action<string> _deleteFileAction;
         private readonly Action<string> _excludeDirectoryAction;
         private readonly Action<string> _deleteDirectoryAction;
-        private readonly ILogger _logger ;
+        private readonly IPrinter _print ;
         private readonly IEnumerable<PatternMatch> _deletionPatterns;
         private readonly IEnumerable<PatternMatch> _ignorePatterns;
         private readonly string _rootPath;
@@ -28,13 +27,13 @@ namespace CleanSolution.Command.Services
             Action<string> deleteDirectoryAction,
             Action<string> excludeDirectoryAction,
             Action<string> deleteFileAction,
-            ILogger logger 
+            IPrinter print 
             )
         {
             if (!Path.IsPathRooted(rootPath)) throw new ArgumentException("Path must be rooted", nameof(rootPath));
             _rootPath = rootPath;
             _deleteFileAction = deleteFileAction;
-            _logger = logger;
+            _print = print;
             _excludeDirectoryAction = excludeDirectoryAction;
             _deleteDirectoryAction = deleteDirectoryAction;
 
@@ -50,9 +49,6 @@ namespace CleanSolution.Command.Services
 
         private void processDirectory(string currentDirFullPath)
         {
-            string currentDirPath = Path.GetRelativePath(_rootPath, currentDirFullPath);
-            _logger.LogDebug($"> {currentDirPath}");
-
             var currentDirs = Directory.GetDirectories(currentDirFullPath).Select(d => new DirectoryInfo(d));
             foreach (DirectoryInfo di in currentDirs)
             {
