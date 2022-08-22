@@ -50,8 +50,8 @@ public class CLArgsService
                                           loggingBuilder.ClearProviders();
                                           loggingBuilder.AddNLog("nlog.Commands.config");
                                       }));
-        Commander2 commander = builder.Build();
-        commander.Execute();
+        var x = builder.Build();
+        x.
         return Task.CompletedTask;
     }
 }

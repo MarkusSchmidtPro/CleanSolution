@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using CleanSolution;
 using CleanSolution.Command;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MSPro.CLArgs;
 using NLog;
 using NLog.Extensions.Logging;
 using ILogger = NLog.ILogger;
+
+
 
 /*
 var configRoot = new ConfigurationBuilder()
@@ -33,7 +34,7 @@ var sw = Stopwatch.StartNew();
 
 try
 {
-    var builder = CommandBuilder.Create();
+    CommandHostBuilder builder = CommandHostBuilder.Create(args);
     builder.ConfigureCommands(commands => { commands.AddAssembly(typeof(CleanSolutionCommand).Assembly); });
     builder.ConfigureServices((services, _) =>
     {
@@ -45,9 +46,11 @@ try
             loggingBuilder.AddNLog(nLogConfig);
         });
     });
-    Commander2 commander = builder.Build();
-    commander.Execute();
+    var host = builder.Build();
+    host.Start();
 }
+
+
 
 #region Exception Handling
 
@@ -69,6 +72,8 @@ finally
 }
 
 #endregion
+
+
 
 nLogger.Info($"*** App Stop (total time {sw.Elapsed:mm\\:ss\\.fff}) ***");
 

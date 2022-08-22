@@ -1,58 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <LangVersion>default</LangVersion>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>2.08.08</Version>
-    <Deterministic>false</Deterministic>
-    <AssemblyVersion>2.08.*</AssemblyVersion>
-    <FileVersion>2.08</FileVersion>
-    <Authors>Markus Schmidt</Authors>
-    <Company>Markus Schmidt (Pro)</Company>
-    <Product>CLArgs - Command Line Arguments</Product>
-    <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
-    <ApplicationIcon>CLArgs.ico</ApplicationIcon>
-    <PackageVersion>2.08.19</PackageVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <LangVersion>default</LangVersion>
+        <TargetFramework>net6.0</TargetFramework>
+        <Version>2.08.08</Version>
+        <Deterministic>false</Deterministic>
+        <AssemblyVersion>2.08.*</AssemblyVersion>
+        <FileVersion>2.08</FileVersion>
+        <Authors>Markus Schmidt</Authors>
+        <Company>Markus Schmidt (Pro)</Company>
+        <Product>CLArgs - Command Line Arguments</Product>
+        <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
+        <ApplicationIcon>CLArgs.ico</ApplicationIcon>
+        <PackageVersion>2.08.19</PackageVersion>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.Development.json" />
-    <None Remove="appsettings.json" />
-    <None Remove="appsettings.Production.json" />
-    <None Remove="CLArgs.ico" />
-    <None Remove="nlog.Commands.config" />
-	      
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="appsettings.Development.json"/>
+        <None Remove="appsettings.json"/>
+        <None Remove="appsettings.Production.json"/>
+        <None Remove="CLArgs.ico"/>
+        <None Remove="nlog.Commands.config"/>
 
-  <ItemGroup>
-    <Content Include="appsettings.Development.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="appsettings.Production.json"><DependentUpon>appsettings.json</DependentUpon><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
-    <None Remove="nlog.Development.config" />
-    <Content Include="nlog.Development.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Remove="nlog.Production.config" />
-    <Content Include="nlog.Production.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="NLog" Version="5.0.2" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Include="appsettings.Development.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="appsettings.Production.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="nlog.Development.config"/>
+        <Content Include="nlog.Development.config">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="nlog.Production.config"/>
+        <Content Include="nlog.Production.config">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
-    <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj">
-      <Private>true</Private>
-    </ProjectReference>
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0"/>
+        <PackageReference Include="NLog" Version="5.0.2"/>
+        <PackageReference Include="NLog.Extensions.Logging" Version="5.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj"/>
+        <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj">
+            <Private>true</Private>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Program2.cs"/>
+        <Compile Remove="CLArgsService.cs"/>
+    </ItemGroup>
 </Project>
