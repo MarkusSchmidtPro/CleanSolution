@@ -1,10 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MSPro.CLArgs;
-using NLog.Extensions.Logging;
 
 
 
@@ -50,8 +47,8 @@ public class CLArgsService
                                           loggingBuilder.ClearProviders();
                                           loggingBuilder.AddNLog("nlog.Commands.config");
                                       }));
-        var x = builder.Build();
-        x.
+        var commander = builder.Build();
+        commander.Execute();
         return Task.CompletedTask;
     }
 }

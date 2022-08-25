@@ -90,9 +90,7 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
     ///     Errors can be collected and many errors can be reported to the user. CLArgs will takes care
     ///     of reporting errors. Simply collect them.
     /// </remarks>
-    protected override void BeforeExecute(
-        HashSet<string> unresolvedPropertyNames,
-        ErrorDetailList errors)
+    protected override void BeforeExecute(ErrorDetailList errors)
     {
         if (this.Context.Directories.Count == 0)
         {

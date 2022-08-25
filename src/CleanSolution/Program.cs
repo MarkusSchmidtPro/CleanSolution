@@ -12,15 +12,6 @@ using ILogger = NLog.ILogger;
 
 
 
-/*
-var configRoot = new ConfigurationBuilder()
-                           .SetBasePath(Directory.GetCurrentDirectory())
-                           .AddJsonFile("appsettings.json", true, true)
-                           .AddJsonFile($"appsettings.{AssemblyInfo.EnvironmentName}.json", true, true)
-                           .Build();
-
-var hostConfig = configRoot.GetSection("HostConfig").Get<HostConfig>();
-*/
 string nLogConfig = $"nLog.{AssemblyInfo.EnvironmentName}.config";
 //
 // The Host uses and registers NLog as the preferred logger.
@@ -36,7 +27,7 @@ try
 {
     CommandHostBuilder builder = CommandHostBuilder.Create(args);
     builder.ConfigureCommands(commands => { commands.AddAssembly(typeof(CleanSolutionCommand).Assembly); });
-    builder.ConfigureServices((services, _) =>
+    builder.ConfigureServices(services =>
     {
         services.AddLogging(loggingBuilder =>
         {
@@ -46,39 +37,21 @@ try
             loggingBuilder.AddNLog(nLogConfig);
         });
     });
-    var host = builder.Build();
-    host.Start();
-}
-
-
-
-#region Exception Handling
-
-catch (AggregateException agex)
+    IHost commandHost = builder.Build();
+    commandHost.Start();
+}catch (Exception ex)
 {
-    nLogger.Error(agex);
-}
-catch (Exception ex)
-{
-    // Only the Exception message is logged, by default.
-    // If the logger defines an Exception layout (nlog.config),
-    // also the StackTrace etc. can be logged, 
-    // which is the default for the file loggers.
     nLogger.Error(ex);
 }
-finally
-{
-    LogManager.Shutdown();
-}
-
-#endregion
 
 
 
 nLogger.Info($"*** App Stop (total time {sw.Elapsed:mm\\:ss\\.fff}) ***");
+LogManager.Shutdown();
+
 
 #if DEBUG
-Console.WriteLine();
-Console.WriteLine("Press 'eniki'...");
-Console.ReadKey();
+    Console.WriteLine();
+    Console.WriteLine("Press 'eniki'...");
+    Console.ReadKey();
 #endif

@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>default</LangVersion>
-    <Version>21.09.09</Version>
+    <Version>2.2208.01</Version>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>21.09.*</AssemblyVersion>
-    <FileVersion>21.09</FileVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
-    <Copyright>Copyright (c) 2021, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
 
   </PropertyGroup>
 
@@ -32,9 +32,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\CLArgs\src\MSPro.CLArgs\MSPro.CLArgs.csproj" />
+    <PackageReference Include="MSPro.CLArgs" Version="2.2208.2" />
   </ItemGroup>
 </Project>

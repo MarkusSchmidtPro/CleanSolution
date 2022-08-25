@@ -6,7 +6,7 @@
     },
     "Clean with profile": {
       "commandName": "Project",
-      "commandLineArgs": "CLEANSOLUTION @sln.profile C:\\vStudio\\MSPro\\GitHub\\CleanSolution\\src\\"
+      "commandLineArgs": "CLEANSOLUTION @sln.profile c:\\Users\\Public\\Documents\\Sync\\Daten\\_gitHub\\CleanSolution\\src\\"
     },
     "Show commands": {
       "commandName": "Project",
