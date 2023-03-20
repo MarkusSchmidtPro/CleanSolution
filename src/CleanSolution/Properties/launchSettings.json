@@ -6,7 +6,8 @@
     },
     "Clean with profile": {
       "commandName": "Project",
-      "commandLineArgs": "CLEANSOLUTION @sln.profile c:\\Users\\Public\\Documents\\Sync\\Daten\\_gitHub\\CleanSolution\\src\\"
+      "commandLineArgs": "CLEANSOLUTION @sln.profile /Test=False",
+      "workingDirectory": "C:\\vStudio\\MSPro\\DevOps\\REST.Service"
     },
     "Show commands": {
       "commandName": "Project",

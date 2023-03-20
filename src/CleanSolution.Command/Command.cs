@@ -54,6 +54,12 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
         Print.Info($"DEL {fileRelativePath}");
         if (!this.Context.Test)
         {
+            if (Context.DeleteReadOnly && (FileAttributes.ReadOnly & File.GetAttributes(fileRelativePath))!= 0) 
+            {
+                // Remove read-only attribute before deletion
+                File.SetAttributes(fileRelativePath, FileAttributes.Normal);
+                Print.Debug($"Removing r/o attribute: {fileRelativePath}");
+            }
             File.Delete(getFullPath(fileRelativePath));
         }
     }
@@ -70,7 +76,20 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
         Print.Info($"RD: {dirRelativePath}");
         if (!this.Context.Test)
         {
-            Directory.Delete(getFullPath(dirRelativePath), true);
+            string fullPath = getFullPath(dirRelativePath);
+
+            // Remove read-only attributes from all directories
+            // which have read-only set!
+            var directory = new DirectoryInfo(fullPath) { Attributes = FileAttributes.Normal };
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                string relPath = 
+                    Path.Combine(dirRelativePath,
+                    Path.GetRelativePath(fullPath, info.FullName));
+                Print.Debug($"Removing r/o attribute: {relPath}");
+                info.Attributes = FileAttributes.Normal;
+            }
+            Directory.Delete(fullPath, true);
         }
     }
 
