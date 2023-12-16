@@ -10,7 +10,7 @@
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
-    <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2023, Markus Schmidt (Pro), all rights reserved.</Copyright>
     <Nullable>enable</Nullable>
 
   </PropertyGroup>
