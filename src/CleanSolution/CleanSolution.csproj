@@ -4,14 +4,14 @@
         <OutputType>Exe</OutputType>
         <LangVersion>default</LangVersion>
         <TargetFramework>net8.0</TargetFramework>
-        <Version>2.2312.16</Version>
+        <Version>3.0.0.0</Version>
         <Deterministic>false</Deterministic>
-        <AssemblyVersion>2.2312.*</AssemblyVersion>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <Authors>Markus Schmidt</Authors>
         <Company>Markus Schmidt (Pro)</Company>
         <Product>CLArgs - Command Line Arguments</Product>
-        <Copyright>Copyright (c) 2023, Markus Schmidt (Pro), all rights reserved.</Copyright>
+        <Copyright>Copyright (c) 2024, Markus Schmidt (Pro), all rights reserved.</Copyright>
         <ApplicationIcon>CLArgs.ico</ApplicationIcon>
         <PackageVersion>$(Version)</PackageVersion>
         <Nullable>enable</Nullable>
@@ -53,8 +53,8 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
         <PackageReference Include="MSPro.CLArgs" Version="2.2312.16" />
-        <PackageReference Include="NLog" Version="5.2.7" />
-        <PackageReference Include="NLog.Extensions.Logging" Version="5.3.7" />
+        <PackageReference Include="NLog" Version="5.3.4" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="5.3.14" />
     </ItemGroup>
 
     <ItemGroup>
