@@ -18,6 +18,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="CLArgsService.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Remove="appsettings.Development.json" />
         <None Remove="appsettings.json" />
         <None Remove="appsettings.Production.json" />
@@ -49,30 +53,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-        <PackageReference Include="MSPro.CLArgs" Version="2.2312.16" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="MSPro.CLArgs" Version="5.2.0" />
         <PackageReference Include="NLog" Version="5.3.4" />
-        <PackageReference Include="NLog.Extensions.Logging" Version="5.3.14" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\CleanSolution.Command\CleanSolution.Command.csproj">
             <Private>true</Private>
         </ProjectReference>
+        <ProjectReference Include="..\CleanSolution.ObsoleteFiles\CleanSolution.ObsoleteFiles.csproj" />
+        <ProjectReference Include="..\CleanSolution.Services\CleanSolution.Services.csproj" />
     </ItemGroup>
 
-
-    <ItemGroup>
-      <Reference Include="MSPro.CLArgs">
-        <HintPath>bin\Debug\net6.0\MSPro.CLArgs.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Compile Remove="CLArgsService.cs" />
-      <Compile Remove="Program2.cs" />
-    </ItemGroup>
 </Project>

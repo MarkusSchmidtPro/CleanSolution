@@ -1,5 +1,10 @@
 {
   "profiles": {
+    "Delete obsolete": {
+      "commandName": "Project",
+      "commandLineArgs": "DeleteObsolete /t .gitbook\\assets /Test false",
+      "workingDirectory": "v:\\VStudio\\MSPro.Boomi.ScriptEase.Lib\\scriptEaseLib\\gitBook"
+    },
     "Clean with command-line": {
       "commandName": "Project",
       "commandLineArgs": "CleanSolution /p=\"*\\obj;*\\bin;*.pdb;*.user\"  /e=\"*\\.git;*\\.vs\""

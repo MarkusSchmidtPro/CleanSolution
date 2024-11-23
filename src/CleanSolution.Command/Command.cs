@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CleanSolution.Command.Services;
+using CleanSolution.Services;
 using MSPro.CLArgs;
 
 
@@ -11,55 +11,51 @@ namespace CleanSolution.Command;
 
 // '|' represents a line-break when displaying help.
 [Command(COMMAND_NAME,
-         HelpText =
-             "Clean a directory" +
-             "|by deleting all files that match a given pattern." +
-             "|You can perfectly use this command to clean a Visual Studio Solution directory before you ship it." +
-             " Delete, for example, all .git, .vs folders or *.user files.")]
-public class CleanSolutionCommand : CommandBase2<CommandContext>
+    HelpText =
+        "Clean a directory" +
+        "|by deleting all files that match a given pattern." +
+        "|You can perfectly use this command to clean a Visual Studio Solution directory before you ship it." +
+        " Delete, for example, all .git, .vs folders or *.user files.")]
+public class CleanSolutionCommand(IServiceProvider serviceProvider, IPrinter print)
+    : CommandBase2<CommandContext>(serviceProvider)
 {
     private const string COMMAND_NAME = "CleanSolution";
     private string _root;
 
 
 
-    public CleanSolutionCommand(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
-
-
     protected override void Execute()
     {
-        Print.Info($"Command '{COMMAND_NAME}'");
-        Print.Info($"Pattern: '{string.Join(';', this.Context.IncludePatterns)}'");
-        Print.Info($"Ignore : \'{string.Join(';', this.Context.ExcludePatterns)}\'");
-        Print.Info($"Test   : \'{this.Context.Test}\'");
+        print.WriteLine($"Command '{COMMAND_NAME}'");
+        print.WriteLine($"Pattern: '{string.Join(';', _context.IncludePatterns)}'");
+        print.WriteLine($"Ignore : \'{string.Join(';', _context.ExcludePatterns)}\'");
+        print.WriteLine($"Test   : \'{_context.Test}\'");
 
-        _root = this.Context.Directories.First();
-        Print.Info($"Root   : {_root}");
+        _root = _context.Directories.First();
+        print.WriteLine($"Root   : {_root}");
 
-        ParseDirectory directoryParser = new(_root, this.Context.IncludePatterns, this.Context.ExcludePatterns,
-                                             deleteDirectory, excludeDirectory, deleteFile, Print
+        ParseDirectory directoryParser = new(_root, _context.IncludePatterns, _context.ExcludePatterns,
+            deleteDirectory, excludeDirectory, deleteFile, print
         );
 
         directoryParser.Execute();
-        Print.Info("--- DONE! ---");
+        print.WriteLine("--- DONE! ---");
     }
 
 
 
     private void deleteFile(string fileRelativePath)
     {
-        Print.Info($"DEL {fileRelativePath}");
-        if (!this.Context.Test)
+        print.WriteLine($"DEL {fileRelativePath}");
+        if (!_context.Test)
         {
-            if (Context.DeleteReadOnly && (FileAttributes.ReadOnly & File.GetAttributes(fileRelativePath))!= 0) 
+            if (_context.DeleteReadOnly && (FileAttributes.ReadOnly & File.GetAttributes(fileRelativePath)) != 0)
             {
                 // Remove read-only attribute before deletion
                 File.SetAttributes(fileRelativePath, FileAttributes.Normal);
-                Print.Debug($"Removing r/o attribute: {fileRelativePath}");
+                print.WriteLine($"Removing r/o attribute: {fileRelativePath}");
             }
+
             File.Delete(getFullPath(fileRelativePath));
         }
     }
@@ -67,28 +63,29 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
 
 
     private void excludeDirectory(string dirRelativePath)
-        => Print.Info($"EX: {dirRelativePath}");
+        => print.WriteLine($"EX: {dirRelativePath}");
 
 
 
     private void deleteDirectory(string dirRelativePath)
     {
-        Print.Info($"RD: {dirRelativePath}");
-        if (!this.Context.Test)
+        print.WriteLine($"RD: {dirRelativePath}");
+        if (!_context.Test)
         {
             string fullPath = getFullPath(dirRelativePath);
 
             // Remove read-only attributes from all directories
             // which have read-only set!
             var directory = new DirectoryInfo(fullPath) { Attributes = FileAttributes.Normal };
-            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            foreach (FileSystemInfo info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
             {
-                string relPath = 
+                string relPath =
                     Path.Combine(dirRelativePath,
-                    Path.GetRelativePath(fullPath, info.FullName));
-                Print.Debug($"Removing r/o attribute: {relPath}");
+                        Path.GetRelativePath(fullPath, info.FullName));
+                //print.WriteLine($"Removing r/o attribute: {relPath}");
                 info.Attributes = FileAttributes.Normal;
             }
+
             Directory.Delete(fullPath, true);
         }
     }
@@ -111,14 +108,14 @@ public class CleanSolutionCommand : CommandBase2<CommandContext>
     /// </remarks>
     protected override void BeforeExecute(ErrorDetailList errors)
     {
-        if (this.Context.Directories.Count == 0)
+        if (_context.Directories.Count == 0)
         {
-            Print.Warn($"No target directory specified, using '{Environment.CurrentDirectory}'");
-            this.Context.Directories.Add(Environment.CurrentDirectory);
+            print.WriteLine($"No target directory specified, using '{Environment.CurrentDirectory}'");
+            _context.Directories.Add(Environment.CurrentDirectory);
         }
 
-        string firstTarget = this.Context.Directories.First();
+        string firstTarget = _context.Directories.First();
         if (!Directory.Exists(firstTarget))
-            errors.AddError(nameof(this.Context.Directories), $"Specified target directory '{firstTarget}' not found!");
+            errors.AddError(nameof(_context.Directories), $"Specified target directory '{firstTarget}' not found!");
     }
 }
