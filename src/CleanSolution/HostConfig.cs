@@ -2,6 +2,6 @@
 
 public class HostConfig
 {
-    public string Environment { get; set; }
-    public string NLogConfig { get; set; }
+    public string Environment { get; set; } = null!;
+    public string NLogConfig { get; set; } = null!;
 }

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanSolution", "CleanSolut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanSolution.Command", "CleanSolution.Command\CleanSolution.Command.csproj", "{1D28ADB0-437D-4EE7-8617-FC6B417E388D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanSolution.ObsoleteFiles", "CleanSolution.ObsoleteFiles\CleanSolution.ObsoleteFiles.csproj", "{C8B77212-3698-43DB-A55F-88080DC483A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanSolution.Services", "CleanSolution.Services\CleanSolution.Services.csproj", "{61CBF519-B75B-4A35-B519-87728605B67E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D28ADB0-437D-4EE7-8617-FC6B417E388D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B77212-3698-43DB-A55F-88080DC483A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B77212-3698-43DB-A55F-88080DC483A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B77212-3698-43DB-A55F-88080DC483A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B77212-3698-43DB-A55F-88080DC483A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CBF519-B75B-4A35-B519-87728605B67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CBF519-B75B-4A35-B519-87728605B67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CBF519-B75B-4A35-B519-87728605B67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CBF519-B75B-4A35-B519-87728605B67E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

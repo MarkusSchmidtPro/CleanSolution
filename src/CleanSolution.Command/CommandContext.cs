@@ -15,6 +15,11 @@ namespace CleanSolution.Command;
 /// </remarks>
 public class CommandContext
 {
+    [OptionDescriptor('r', "DeleteReadOnly", defaultValue:true, helpText:
+        "Delete files that have read-only attribute set.")]
+    public bool DeleteReadOnly { get; set; }
+
+
     [Targets]
     public List<string> Directories { get; set; } = new();
 
@@ -32,7 +37,7 @@ public class CommandContext
                           "Specify one or more (; separated) patterns for files or directories that will be deleted."+
                           "|For example: *\\obj or *.user" +
                           "|With CLArgs support for config files (collection of command-line parameters) you can"+
-                          " create your custom clean-profiles for di fferent situations. One example profile is included: @sln.profile.")]
+                          " create your custom clean-profiles for different situations. One example profile is included: @sln.profile.")]
     public string IncludePattern { get; set; }
 
 

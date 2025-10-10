@@ -1,18 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+<<<<<<< HEAD
     <TargetFramework>net9.0</TargetFramework>
+=======
+    <TargetFramework>net8.0</TargetFramework>
+>>>>>>> dev
     <LangVersion>default</LangVersion>
-    <Version>2.2208.01</Version>
+    <Version>3.1.0.0</Version>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <Authors>Markus Schmidt</Authors>
     <Company>Markus Schmidt (Pro)</Company>
     <Product>CLArgs - Command Line Arguments</Product>
-    <Copyright>Copyright (c) 2022, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2024, Markus Schmidt (Pro), all rights reserved.</Copyright>
+    <Nullable>enable</Nullable>
 
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="V:\packages\nuget\mspro.clargs\5.0.1\contentFiles\any\net8.0\Images\CLArgs.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="cs.bat" />
@@ -31,7 +40,15 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
     <PackageReference Include="MSPro.CLArgs" Version="5.2.0" />
+=======
+    <PackageReference Include="MSPro.CLArgs" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanSolution.Services\CleanSolution.Services.csproj" />
+>>>>>>> dev
   </ItemGroup>
 </Project>
