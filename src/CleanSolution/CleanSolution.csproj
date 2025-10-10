@@ -3,13 +3,8 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <LangVersion>default</LangVersion>
-<<<<<<< HEAD
         <TargetFramework>net9.0</TargetFramework>
-        <Version>2.2208.01</Version>
-=======
-        <TargetFramework>net8.0</TargetFramework>
         <Version>3.0.0.0</Version>
->>>>>>> dev
         <Deterministic>false</Deterministic>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
@@ -21,16 +16,6 @@
         <PackageVersion>$(Version)</PackageVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-<<<<<<< HEAD
-      <Compile Remove="pub\**" />
-      <EmbeddedResource Remove="pub\**" />
-      <None Remove="pub\**" />
-=======
-      <Compile Remove="CLArgsService.cs" />
->>>>>>> dev
-    </ItemGroup>
 
     <ItemGroup>
         <None Remove="appsettings.Development.json" />
@@ -64,19 +49,12 @@
     </ItemGroup>
 
     <ItemGroup>
-<<<<<<< HEAD
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
         <PackageReference Include="MSPro.CLArgs" Version="5.2.0" />
         <PackageReference Include="NLog" Version="6.0.5" />
         <PackageReference Include="NLog.Extensions.Logging" Version="6.0.5" />
-=======
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
-        <PackageReference Include="MSPro.CLArgs" Version="5.2.0" />
-        <PackageReference Include="NLog" Version="5.3.4" />
-        <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
->>>>>>> dev
     </ItemGroup>
 
     <ItemGroup>

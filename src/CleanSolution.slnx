@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CleanSolution.Command/CleanSolution.Command.csproj" />
+  <Project Path="CleanSolution.ObsoleteFiles/CleanSolution.ObsoleteFiles.csproj" />
+  <Project Path="CleanSolution.Services/CleanSolution.Services.csproj" />
+  <Project Path="CleanSolution/CleanSolution.csproj" />
+</Solution>
